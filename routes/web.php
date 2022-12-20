@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,8 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [LoginController::class, 'login']);
+
+Route::post('/process-login', [LoginController::class, 
+    'processLogin'])->name('process-login');
+
+Route::resource('user', UserController::class);
