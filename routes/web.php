@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,9 @@ Route::post('/process-login', [LoginController::class,
     'processLogin'])->name('process-login');
 
 Route::resource('user', UserController::class);
+
+Route::group(
+    [/*'middleware' => 'admin', */'as' => 'admin.'],
+    function () {
+        Route::resource('product', ProductController::class);
+});
