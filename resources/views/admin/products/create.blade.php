@@ -50,7 +50,7 @@ enctype="multipart-formdata">
           <label for="image">Image</label>
           <div class="input-group">
             <div class="custom-file">
-              <input type="file" class="custom-file-input" name="image" id="image">
+              <input type="file" class="custom-file-input" name="photo" id="image">
               <label class="custom-file-label" for="image">Choose image</label>
             </div>
             <div class="input-group-append">

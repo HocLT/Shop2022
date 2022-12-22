@@ -42,10 +42,10 @@ class ProductController extends Controller
         // using mass assignment
         $prod = $request->all();    // $prod là 1 mảng
         $prod['slug'] = \Str::slug($request->name);
-
-        if($request->hasFile('image'))
+        
+        if($request->hasFile('photo'))
         {
-            $file=$request->file('image');
+            $file=$request->file('photo');
             $extension = $file->getClientOriginalExtension();
             if($extension != 'jpg' && $extension != 'png' && $extension !='jpeg')
             {
@@ -59,9 +59,10 @@ class ProductController extends Controller
         {
             $imageName = null;
         }
-
+        //dd($prod);
         $prod['image'] = $imageName;
         $product = new Product($prod);
+        dd($prod);
         $product->save();
         return redirect()->route('admin.product.index');
     }
