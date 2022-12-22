@@ -24,6 +24,16 @@
     <div class="card-header">
       <h3 class="card-title">Products</h3>
     </div>
+
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+        </ul>
+      </div>
+    @endif
     <!-- /.card-header -->
     <!-- form start -->
     <form action="{{ Route('admin.product.store') }}" method="POST" 

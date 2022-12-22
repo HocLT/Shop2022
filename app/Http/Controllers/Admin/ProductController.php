@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -35,7 +36,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         // $prod = new Product();
         // $prod->name = $request->name;
@@ -85,7 +86,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
@@ -97,7 +98,31 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $prod = $request->all();    // $prod là 1 mảng
+        $prod['slug'] = \Str::slug($request->name);
+        
+        if($request->hasFile('photo'))
+        {
+            $file=$request->file('photo');
+            $extension = $file->getClientOriginalExtension();
+            if($extension != 'jpg' && $extension != 'png' && $extension !='jpeg')
+            {
+                return redirect()->route('admin.product.create')
+                    ->with('loi','Bạn chỉ được chọn file có đuôi jpg,png,jpeg');
+            }
+            $imageName = $file->getClientOriginalName();
+            $file->move("images",$imageName);
+        }
+        else
+        {
+            // trường hợp không upload phải lấy hình cũ
+            $oldItem = Product::find($product->id);
+            $imageName = $oldItem->image;
+        }
+        $prod['image'] = $imageName;
+        //$product = new Product($prod);
+        $product->update($prod);
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -108,6 +133,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        // xử lý xóa file hình nếu có. dùng hàm unlink
+        // Product::destroy($product->id);
+        $product->delete();
+        return redirect()->route('admin.product.index');
     }
 }

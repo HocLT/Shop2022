@@ -58,7 +58,15 @@
             <img src="images/{{ $item->image }}" alt="{{ $item->name }}" style="width:100px; height:auto;">
             @endif
           </td>
-          <td></td>
+          <td>
+            <a class="btn btn-primary" href="{{ Route('admin.product.edit', $item->id) }}">Edit</a>
+            <form action="{{ Route('admin.product.destroy', $item->id) }}" 
+                        method="post" style="display: inline-block">
+              @csrf
+              @method('delete')
+              <input type="submit" value="Delete" class="btn btn-danger"/>
+            </form>
+          </td>
         </tr>
         @endforeach
       </tbody>
