@@ -59,10 +59,8 @@ class ProductController extends Controller
         {
             $imageName = null;
         }
-        //dd($prod);
         $prod['image'] = $imageName;
         $product = new Product($prod);
-        dd($prod);
         $product->save();
         return redirect()->route('admin.product.index');
     }

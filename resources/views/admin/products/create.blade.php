@@ -27,7 +27,7 @@
     <!-- /.card-header -->
     <!-- form start -->
     <form action="{{ Route('admin.product.store') }}" method="POST" 
-enctype="multipart-formdata">
+enctype="multipart/form-data">
       @csrf
       <div class="card-body">
         <div class="form-group">
