@@ -28,7 +28,12 @@ Route::post('/process-login', [LoginController::class,
 Route::resource('user', UserController::class);
 
 Route::group(
-    [/*'middleware' => 'admin', */'as' => 'admin.'],
+    ['middleware' => 'islogin', 'as' => 'admin.'],
     function () {
-        Route::resource('product', ProductController::class);
+
+        Route::group(
+            ['middleware' => 'isadmin'],
+            function () {
+                Route::resource('product', ProductController::class);
+            });
 });

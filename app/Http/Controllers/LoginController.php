@@ -20,8 +20,11 @@ class LoginController extends Controller
         $user = User::where('email', '=', $email)
             ->where('password', '=', $pass)->first();
        //dd($user);
-        if ($user->role_id == 1) {
-            return redirect('user');
+        if ($user != null) {
+            $request->session()->put('user', $user);
+            if ($user->role_id == 1) {
+                return redirect('user');
+            }
         }
         return redirect('/');   // chuyển về trang index của fe
     }
