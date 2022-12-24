@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,6 @@ use App\Http\Controllers\Admin\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/login', [LoginController::class, 'login']);
 
 Route::post('/process-login', [LoginController::class, 
@@ -27,9 +24,17 @@ Route::post('/process-login', [LoginController::class,
 
 Route::resource('user', UserController::class);
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/details/{slug}', [HomeController::class, 'product'])->name('details');
+
+
+
 Route::group(
     ['middleware' => 'islogin', 'as' => 'admin.'],
     function () {
+
+        // route giỏ hàng, view cart để đây
 
         Route::group(
             ['middleware' => 'isadmin'],
