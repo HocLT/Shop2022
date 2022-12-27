@@ -25,8 +25,8 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'price' => 'required|min:5',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif',
+            'price' => 'required',
+            'photo' => 'required|image|mimes:jpg,png,jpeg,gif',
         ];
 
     }
@@ -36,10 +36,10 @@ class ProductRequest extends FormRequest
         return [
             'name.required' => 'Name is required!',
             'price.required' => 'Price is required!',
-            'price.min' => 'Price must be greater than 5!',
-            'image.required' => 'Image is required!',
-            'image.image' => 'Please upload image!',
-            'image.mimes' => 'Accept image type: jpg,png,jpeg,gif!',
+            //'price.min' => 'Price must be greater than 5!',
+            'photo.required' => 'Image is required!',
+            'photo.image' => 'Please upload image!',
+            'photo.mimes' => 'Accept image type: jpg,png,jpeg,gif!',
         ];
     }
 

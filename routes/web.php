@@ -28,8 +28,17 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/details/{slug}', [HomeController::class, 'product'])->name('details');
 
+Route::post('/add-cart', [HomeController::class, 'addCart'])->name('addCart');
 
+Route::get('/view-cart', [HomeController::class, 'viewCart'])->name('viewCart');
 
+Route::post('/update-cart', [HomeController::class, 'updateCart'])
+            ->name('updateCart');
+
+Route::post('/delete-cart-item', [HomeController::class, 'deleteCartItem'])
+            ->name('deleteCartItem');
+
+// 'namespace' => 'admin'
 Route::group(
     ['middleware' => 'islogin', 'as' => 'admin.'],
     function () {

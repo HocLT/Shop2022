@@ -452,5 +452,6 @@
 	<script src="{{ asset('/fe/js/jquery.countdown.min.js') }}"></script>
 	<script src="{{ asset('/fe/js/jquery.sticky.js') }}"></script>
 	<script src="{{ asset('/fe/js/functions.js') }}"></script>
+	@yield('myjs')
 </body>
 </html>

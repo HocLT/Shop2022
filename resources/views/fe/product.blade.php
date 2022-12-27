@@ -5,7 +5,7 @@
 
   <div class="wrap-breadcrumb">
     <ul>
-      <li class="item-link"><a href="#" class="link">Home</a></li>
+      <li class="item-link"><a href="{{ Route('home') }}" class="link">Home</a></li>
       <li class="item-link"><span>Product</span></li>
     </ul>
   </div>
@@ -17,10 +17,9 @@
           <div class="product-gallery">
             <ul class="slides">
 
-              <li data-thumb="assets/images/products/digital_18.jpg">
-                <img src="assets/images/products/digital_18.jpg" alt="product thumbnail" />
+              <li data-thumb="{{ asset('images/'.$prod->image)}}">
+                <img src="{{ asset('images/'.$prod->image) }}" alt="product thumbnail" />
               </li>
-
 
             </ul>
           </div>
@@ -44,9 +43,9 @@
               </ul> -->
           </div>
           <div class="wrap-social">
-            <a class="link-socail" href="#"><img src="assets/images/social-list.png" alt=""></a>
+            <a class="link-socail" href="#"><img src="{{ asset('fe/images/social-list.png') }}" alt=""></a>
           </div>
-          <div class="wrap-price"><span class="product-price">$250.00</span></div>
+          <div class="wrap-price"><span class="product-price">${{ $prod->price }}</span></div>
           <div class="stock-info in-stock">
               <p class="availability">Availability: <b>In Stock</b></p>
           </div>
@@ -60,7 +59,7 @@
             </div>
           </div>
           <div class="wrap-butons">
-            <a href="#" class="btn add-to-cart">Add to Cart</a>
+            <a href="#" class="btn add-to-cart" data-id="{{ $prod->id }}">Add to Cart</a>
               <div class="wrap-btn">
                   <a href="#" class="btn btn-compare">Add Compare</a>
                   <a href="#" class="btn btn-wishlist">Add Wishlist</a>
@@ -438,4 +437,27 @@
   </div><!--end row-->
 
 </div><!--end container-->
+@endsection
+@section('myjs')
+<script>
+    $(document).ready(function() {
+        $('.add-to-cart').click(function(e) {
+            e.preventDefault(); // bỏ tác dụng của link
+            let pid = $(this).data("id");
+            let quantity = $('input[name="product-quatity"]').val();
+            // dùng jquery ajax gửi request về server
+            $.ajax({
+                type: 'post',
+                url: "{{ Route('addCart') }}",
+                data: {
+                    pid: pid, 
+                    quantity: quantity, 
+                    _token: '{{ csrf_token() }}',
+                }, success: function(data) {
+                    alert('add product to cart successful.');
+                }
+            });
+        });
+    });
+</script>
 @endsection
