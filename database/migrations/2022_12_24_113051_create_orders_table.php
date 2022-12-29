@@ -15,8 +15,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained();
+            //$table->foreignId('customer_id')->constrained();
             $table->date('order_date');
+            $table->string('customer_name')->nullable();
+            $table->string('customer_email')->nullable();
+            $table->string('customer_phone')->nullable();
+            $table->string('customer_address')->nullable();
             $table->timestamps();
         });
     }

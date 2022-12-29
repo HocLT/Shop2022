@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('short_desc')->nullable();
             $table->integer('price')->nullable();
             $table->string('image')->nullable();
+            $table->integer('featured')->nullable();
             $table->timestamps();
         });
     }
